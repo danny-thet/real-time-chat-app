@@ -11,8 +11,6 @@ const user = "User_" + String(new Date().getTime()).substr(-3);
 
 // component
 const Index: React.FC = () => {
-	const inputRef = useRef(null);
-
 	// connected flag
 	const [connected, setConnected] = useState<boolean>(false);
 
@@ -22,8 +20,8 @@ const Index: React.FC = () => {
 
 	useEffect((): any => {
 		// connect to socket server
-		const socket = io.connect(process.env.BASE_URL, {
-			path: "/api/socketio",
+		const socket = io(process.env.BASE_URL as any, {
+			path: "/api/socket",
 		});
 
 		// log socket connection
@@ -62,9 +60,6 @@ const Index: React.FC = () => {
 			// reset field if OK
 			if (resp.ok) setMsg("");
 		}
-
-		// focus after click
-		inputRef?.current?.focus();
 	};
 
 	return (
@@ -89,7 +84,6 @@ const Index: React.FC = () => {
 					<div>
 						<div>
 							<input
-								ref={inputRef}
 								type="text"
 								value={msg}
 								placeholder={connected ? "Type a message..." : "Connecting..."}

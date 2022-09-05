@@ -1,7 +1,7 @@
 import { NextApiRequest } from "next";
 import { NextApiResponseServerIO } from "../../type/next";
 
-export default function chat(
+export default function ChatHandler(
 	req: NextApiRequest,
 	res: NextApiResponseServerIO
 ) {
