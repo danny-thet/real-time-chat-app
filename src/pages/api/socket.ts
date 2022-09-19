@@ -3,12 +3,6 @@ import { Server as ServerIO } from "socket.io";
 import { Server as NetServer } from "http";
 import { NextApiResponseServerIO } from "../../type/next";
 
-// export const config = {
-// 	api: {
-// 		bodyParser: false,
-// 	},
-// };
-
 const SocketHandler = async (
 	req: NextApiRequest,
 	res: NextApiResponseServerIO
