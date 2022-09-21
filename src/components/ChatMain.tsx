@@ -33,7 +33,7 @@ export const ChatMain = () => {
 
 		// socket disconnet onUnmount if exists
 		if (socket) return () => socket.disconnect();
-	}, []);
+	}, [chats]);
 
 	const sendMessage = async () => {
 		if (message) {
