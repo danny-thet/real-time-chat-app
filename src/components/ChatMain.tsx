@@ -14,7 +14,7 @@ export const ChatMain = () => {
 	const [chats, setChats] = useState<MessageType[]>([]);
 	const [message, setMessage] = useState<string>("");
 
-	useEffect((): any => {
+	useEffect(() => {
 		// connect to socket server
 		const socket = io(process.env.BASE_URL ?? "", {
 			path: "/api/socket",
@@ -32,7 +32,11 @@ export const ChatMain = () => {
 		});
 
 		// socket disconnet onUnmount if exists
-		if (socket) return () => socket.disconnect();
+		if (socket) {
+			return () => {
+				socket.disconnect();
+			};
+		}
 	}, [chats]);
 
 	const sendMessage = async () => {
