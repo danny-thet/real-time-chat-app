@@ -1,6 +1,8 @@
-import { Box, Button, Input } from "@chakra-ui/react";
+import { Box, Button, Flex, Input } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
+import { ActiveUsersBox } from "./ActiveUsersBox";
+import { ChatsBox } from "./ChatsBox";
 
 type MessageType = {
 	user: string;
@@ -63,10 +65,7 @@ export const ChatMain = () => {
 
 	return (
 		<Box>
-			<Box my="auto" textAlign="center">
-				This is from chat main
-			</Box>
-			<Box>
+			{/* <Box>
 				{chats
 					? chats?.map((chat, index) => {
 							return (
@@ -93,7 +92,18 @@ export const ChatMain = () => {
 			/>
 			<Button onClick={sendMessage} disabled={!isConnected}>
 				SEND
-			</Button>
+			</Button> */}
+			<Box h="100vh">
+				<Flex justifyContent="flex-end">
+					<Box mx="10" my="5">
+						<Button>Leave Chat</Button>
+					</Box>
+				</Flex>
+				<Flex h="85%" textAlign="center">
+					<ActiveUsersBox />
+					<ChatsBox />
+				</Flex>
+			</Box>
 		</Box>
 	);
 };
