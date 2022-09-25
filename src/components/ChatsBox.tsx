@@ -2,8 +2,24 @@ import { Box, Button, Flex, Input } from "@chakra-ui/react";
 
 export const ChatsBox = () => {
 	return (
-		<Box w="70%" h="100%" mr="10" ml="5" bgColor="white">
-			<Box h="85%" overflow="auto" px="10">
+		<Box w="70%" h="100%" mr="10" ml="5" borderRadius="lg" bgColor="#00cccc">
+			<Box
+				h="85%"
+				overflow="auto"
+				px="10"
+				mt="5"
+				sx={{
+					"&::-webkit-scrollbar": {
+						width: "16px",
+						borderRadius: "8px",
+						backgroundColor: `rgba(0, 0, 0, 0.05)`,
+					},
+					"&::-webkit-scrollbar-thumb": {
+						borderRadius: "8px",
+						backgroundColor: `rgba(0, 0, 0, 0.05)`,
+					},
+				}}
+			>
 				Generating random paragraphs can be an excellent way for writers to get
 				their creative flow going at the beginning of the day. The writer has no
 				idea what topic the random paragraph will be about when it appears. This
