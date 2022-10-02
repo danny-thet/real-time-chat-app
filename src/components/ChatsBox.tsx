@@ -2,12 +2,12 @@ import { Box, Button, Flex, Input } from "@chakra-ui/react";
 
 export const ChatsBox = () => {
 	return (
-		<Box w="70%" h="100%" mr="10" ml="5" borderRadius="lg" bgColor="#00cccc">
+		<Box w="70%" h="100%" mr="10" ml="5" borderRadius="xl" bgColor="#666699">
 			<Box
-				h="85%"
-				overflow="auto"
-				px="10"
+				h="83%"
 				mt="5"
+				px="10"
+				overflow="auto"
 				sx={{
 					"&::-webkit-scrollbar": {
 						width: "16px",
@@ -62,9 +62,11 @@ export const ChatsBox = () => {
 				writer is forced to use creativity to incorporate the paragraph into
 				their writing.
 			</Box>
-			<Flex my="5" mx="10" minH="100px">
+			<Flex my="4" mx="10" minH="100px">
 				<Input
+					bgColor="white"
 					type="text"
+					size="lg"
 					// value={message}
 					// placeholder={isConnected ? "Type a message..." : "Connecting..."}
 					// disabled={!isConnected}
@@ -78,8 +80,9 @@ export const ChatsBox = () => {
 					// }}
 				/>
 				<Button
-
-				// onClick={sendMessage} disabled={!isConnected}
+					ml="4"
+					size="lg"
+					// onClick={sendMessage} disabled={!isConnected}
 				>
 					SEND
 				</Button>

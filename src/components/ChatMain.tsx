@@ -99,7 +99,7 @@ export const ChatMain = () => {
 						<Button>Leave Chat</Button>
 					</Box>
 				</Flex>
-				<Flex h="85%" textAlign="center">
+				<Flex h="88%" textAlign="center">
 					<ActiveUsersBox />
 					<ChatsBox />
 				</Flex>
