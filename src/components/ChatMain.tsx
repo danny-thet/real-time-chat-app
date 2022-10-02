@@ -1,7 +1,7 @@
 import { Box, Button, Flex, Input } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
-import { ActiveUsersBox } from "./ActiveUsersBox";
+import { ActiveUsersBox } from "./Users/ActiveUsersBox";
 import { ChatsBox } from "./ChatsBox";
 
 type MessageType = {
@@ -99,7 +99,7 @@ export const ChatMain = () => {
 						<Button>Leave Chat</Button>
 					</Box>
 				</Flex>
-				<Flex h="88%" textAlign="center">
+				<Flex h="88%">
 					<ActiveUsersBox />
 					<ChatsBox />
 				</Flex>
