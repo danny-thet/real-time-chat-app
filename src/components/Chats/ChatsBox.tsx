@@ -1,9 +1,10 @@
 import { Box, Button, Flex, Input } from "@chakra-ui/react";
-import { overflowStyles } from "../constants/overflowStyles";
+import { overflowStyles } from "../../constants/overflowStyles";
+import { ChatBubble } from "./ChatBubble";
 
 export const ChatsBox = () => {
 	return (
-		<Box w="90%" h="100%" mr="10" ml="5" borderRadius="xl" bgColor="#666699">
+		<Box w="90%" h="100%" mr="10" ml="5" borderRadius="xl" bgColor="#5c5c8a">
 			<Box
 				h="83%"
 				mt="5"
@@ -11,6 +12,8 @@ export const ChatsBox = () => {
 				overflow={overflowStyles.overflow}
 				sx={overflowStyles.sx}
 			>
+				<ChatBubble />
+				<ChatBubble />
 				Generating random paragraphs can be an excellent way for writers to get
 				their creative flow going at the beginning of the day. The writer has no
 				idea what topic the random paragraph will be about when it appears. This

@@ -2,7 +2,7 @@ import { Box, Button, Flex, Input } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import { ActiveUsersBox } from "./Users/ActiveUsersBox";
-import { ChatsBox } from "./ChatsBox";
+import { ChatsBox } from "./Chats/ChatsBox";
 
 type MessageType = {
 	user: string;
