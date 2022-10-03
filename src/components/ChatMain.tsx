@@ -3,28 +3,53 @@ import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import { ActiveUsersBox } from "./Users/ActiveUsersBox";
 import { ChatsBox } from "./Chats/ChatsBox";
+import { Socket } from "socket.io";
 
 type MessageType = {
 	user: string;
 	message: string;
 };
 
+type NewUserType = {
+	name: string;
+	id: string;
+};
+
 const user = "User_" + String(new Date().getTime());
+
+let users: NewUserType[] = [];
 
 export const ChatMain = () => {
 	const [isConnected, setIsConnected] = useState<boolean>(false);
 	const [chats, setChats] = useState<MessageType[]>([]);
+	const [newUser, setNewUser] = useState<NewUserType>();
+
 	const [message, setMessage] = useState<string>("");
+
+	const [usersList, setUsersList] = useState<NewUserType[]>([]);
 
 	useEffect(() => {
 		// connect to socket server
 		const socket = io(process.env.BASE_URL ?? "", {
 			path: "/api/socket",
 		});
-
-		// log ssocket connection
-		socket.on("connect", () => {
+		// log socket connection
+		socket.on("connect", async () => {
 			setIsConnected(true);
+			setNewUser({ name: "New", id: socket.id });
+			socket.on("user", async (newUser: NewUserType) => {
+				users.push(newUser);
+				await fetch("/api/users", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify(users),
+				});
+			});
+			socket.on("users", (data) => {
+				return setUsersList(data);
+			});
 		});
 
 		// update chat on new message dispatched
@@ -39,7 +64,7 @@ export const ChatMain = () => {
 				socket.disconnect();
 			};
 		}
-	}, [chats]);
+	}, [chats, usersList]);
 
 	const sendMessage = async () => {
 		if (message) {
@@ -63,9 +88,19 @@ export const ChatMain = () => {
 		}
 	};
 
+	const join = async () => {
+		await fetch("/api/user", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(newUser),
+		});
+	};
+
 	return (
 		<Box>
-			{/* <Box>
+			<Box>
 				{chats
 					? chats?.map((chat, index) => {
 							return (
@@ -73,6 +108,13 @@ export const ChatMain = () => {
 									{chat.user === user ? "me" : chat.user} : {chat.message}
 								</Box>
 							);
+					  })
+					: "No chat messages"}
+			</Box>
+			<Box>
+				{usersList
+					? usersList?.map((user, index) => {
+							return <Box key={index}>{user.id}</Box>;
 					  })
 					: "No chat messages"}
 			</Box>
@@ -90,9 +132,12 @@ export const ChatMain = () => {
 					}
 				}}
 			/>
+			<Button onClick={join} disabled={!isConnected}>
+				JOIN
+			</Button>
 			<Button onClick={sendMessage} disabled={!isConnected}>
 				SEND
-			</Button> */}
+			</Button>
 			<Box h="100vh">
 				<Flex justifyContent="flex-end">
 					<Box mx="10" my="5">
