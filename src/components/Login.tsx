@@ -1,6 +1,5 @@
 import { Flex, Button, Input, Box, Heading } from "@chakra-ui/react";
-import Router from "next/router";
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { io } from "socket.io-client";
 
 type NewUserType = {
@@ -8,9 +7,14 @@ type NewUserType = {
 	id: string;
 };
 
-export const Login = () => {
-	const [isConnected, setIsConnected] = useState<boolean>(false);
+type LoginProps = {
+	setIsNameChoosen: Dispatch<SetStateAction<boolean>>;
+};
+
+export const Login = ({ setIsNameChoosen }: LoginProps) => {
 	const [newUser, setNewUser] = useState<NewUserType>({ name: "", id: "" });
+
+	const [isConnected, setIsConnected] = useState<boolean>(false);
 
 	useEffect(() => {
 		// connect to socket server
@@ -41,7 +45,7 @@ export const Login = () => {
 		} catch (error) {
 			console.log(error);
 		} finally {
-			Router.push("/chatmain");
+			setIsNameChoosen(true);
 		}
 	};
 

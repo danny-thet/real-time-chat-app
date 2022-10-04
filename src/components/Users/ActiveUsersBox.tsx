@@ -1,4 +1,6 @@
 import { Box, Divider } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { io } from "socket.io-client";
 import { overflowStyles } from "../../constants/overflowStyles";
 import { ActiveUser } from "./ActiveUser";
 
