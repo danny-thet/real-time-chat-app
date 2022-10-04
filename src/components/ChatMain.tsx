@@ -99,7 +99,7 @@ export const ChatMain = () => {
 	};
 
 	return (
-		<Box>
+		<Box bgColor="#3d3d5c">
 			<Box>
 				{chats
 					? chats?.map((chat, index) => {

@@ -1,7 +1,7 @@
-import { Login } from "../components/Login";
+import { ChatMain } from "../components/ChatMain";
 
-const ChatMain = () => {
-	return <Login />;
+const ChatMainPage = () => {
+	return <ChatMain />;
 };
 
-export default ChatMain;
+export default ChatMainPage;

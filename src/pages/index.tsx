@@ -1,12 +1,12 @@
 import { NextPage } from "next";
 import React from "react";
-import { ChatMain } from "../components/ChatMain";
+import { Login } from "../components/Login";
 import styles from "../styles/Home.module.css";
 
 const Home: NextPage = () => {
 	return (
 		<main className={styles.main}>
-			<ChatMain />
+			<Login />
 		</main>
 	);
 };
