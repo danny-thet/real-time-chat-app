@@ -1,6 +1,50 @@
 import { Flex, Button, Input, Box, Heading } from "@chakra-ui/react";
+import Router from "next/router";
+import { useEffect, useState } from "react";
+import { io } from "socket.io-client";
+
+type NewUserType = {
+	name: string;
+	id: string;
+};
 
 export const Login = () => {
+	const [isConnected, setIsConnected] = useState<boolean>(false);
+	const [newUser, setNewUser] = useState<NewUserType>({ name: "", id: "" });
+
+	useEffect(() => {
+		// connect to socket server
+		const socket = io(process.env.BASE_URL ?? "", {
+			path: "/api/socket",
+		});
+
+		// log socket connection
+		socket.on("connect", async () => {
+			setIsConnected(true);
+			setNewUser({ name: "New User", id: socket.id });
+		});
+	}, []);
+
+	const handleOnChangeName = (value: string) => {
+		setNewUser({ name: value, id: newUser?.id });
+	};
+
+	const handleJoinChat = async () => {
+		try {
+			await fetch("/api/user", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(newUser),
+			});
+		} catch (error) {
+			console.log(error);
+		} finally {
+			Router.push("/chatmain");
+		}
+	};
+
 	return (
 		<Box display="flex" h="100vh" alignItems="center">
 			<Box
@@ -16,7 +60,12 @@ export const Login = () => {
 					Chip Chat
 				</Heading>
 				<Flex m="auto" alignItems="center" gap="2" h="50%" w="80%">
-					<Input placeholder="Enter your name" size="lg" />
+					<Input
+						placeholder="Enter your name"
+						size="lg"
+						isDisabled={!isConnected}
+						onChange={(event) => handleOnChangeName(event.currentTarget.value)}
+					/>
 
 					<Button
 						bgColor="#3d3d5c"
@@ -25,6 +74,8 @@ export const Login = () => {
 							color: "#3d3d5c",
 						}}
 						size="lg"
+						isDisabled={!isConnected}
+						onClick={handleJoinChat}
 					>
 						JOIN
 					</Button>

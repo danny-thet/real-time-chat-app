@@ -88,16 +88,6 @@ export const ChatMain = () => {
 		}
 	};
 
-	const join = async () => {
-		await fetch("/api/user", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(newUser),
-		});
-	};
-
 	return (
 		<Box bgColor="#3d3d5c">
 			<Box>
@@ -132,9 +122,6 @@ export const ChatMain = () => {
 					}
 				}}
 			/>
-			<Button onClick={join} disabled={!isConnected}>
-				JOIN
-			</Button>
 			<Button onClick={sendMessage} disabled={!isConnected}>
 				SEND
 			</Button>
