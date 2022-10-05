@@ -1,13 +1,8 @@
 import { NextPage } from "next";
 import React from "react";
 import { ChatMain } from "../components/ChatMain";
-import styles from "../styles/Home.module.css";
 
 const Home: NextPage = () => {
-	return (
-		<main className={styles.main}>
-			<ChatMain />
-		</main>
-	);
+	return <ChatMain />;
 };
 export default Home;

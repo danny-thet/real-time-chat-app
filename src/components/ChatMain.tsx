@@ -4,6 +4,7 @@ import { io } from "socket.io-client";
 import { ChatsBox } from "./Chats/ChatsBox";
 
 import { Login } from "./Login";
+import { ActiveUser } from "./Users/ActiveUser";
 import { ActiveUsersBox } from "./Users/ActiveUsersBox";
 
 type MessageType = {
@@ -86,7 +87,7 @@ export const ChatMain = () => {
 		<Box bgColor="#3d3d5c">
 			{isNameChoosen ? (
 				<>
-					<Box>
+					{/* <Box>
 						{chats
 							? chats?.map((chat, index) => {
 									return (
@@ -97,13 +98,7 @@ export const ChatMain = () => {
 							  })
 							: "No chat messages"}
 					</Box>
-					<Box>
-						{usersList
-							? usersList?.map((user, index) => {
-									return <Box key={index}>{user.name}</Box>;
-							  })
-							: "No chat messages"}
-					</Box>
+
 					<Input
 						type="text"
 						value={message}
@@ -120,17 +115,19 @@ export const ChatMain = () => {
 					/>
 					<Button onClick={sendMessage} disabled={!isConnected}>
 						SEND
-					</Button>
-					<Box h="100vh">
-						<Flex justifyContent="flex-end">
-							<Box mx="10" my="5">
+					</Button> */}
+					<Box h="80vh">
+						<Box mt="10">
+							<Flex w="80%" mx="auto" justifyContent={"flex-start"}>
+								<Box flex={1}>
+									<Flex>
+										<ActiveUser />
+									</Flex>
+								</Box>
 								<Button>Leave Chat</Button>
-							</Box>
-						</Flex>
-						<Flex h="88%">
-							<ActiveUsersBox />
-							<ChatsBox />
-						</Flex>
+							</Flex>
+						</Box>
+						<ChatsBox />
 					</Box>
 				</>
 			) : (
