@@ -24,23 +24,8 @@ export const ChatMain = () => {
 	const [isConnected, setIsConnected] = useState<boolean>(false);
 	const [chats, setChats] = useState<MessageType[]>([]);
 	const [isNameChoosen, setIsNameChoosen] = useState<boolean>(false);
-
 	const [message, setMessage] = useState<string>("");
 	const [usersList, setUsersList] = useState<NewUserType[]>([]);
-
-	useEffect(() => {
-		const socket = io(process.env.BASE_URL ?? "", {
-			path: "/api/socket",
-		});
-
-		socket.on("connect", async () => {
-			setIsConnected(true);
-		});
-
-		socket.on("users", (data) => {
-			return setUsersList(data);
-		});
-	}, [usersList]);
 
 	useEffect(() => {
 		const socket = io(process.env.BASE_URL ?? "", {
@@ -62,9 +47,9 @@ export const ChatMain = () => {
 			});
 		});
 
-		// socket.on("users", (data) => {
-		// 	return setUsersList(data);
-		// });
+		socket.on("users", (data) => {
+			return setUsersList(data);
+		});
 
 		socket.on("message", (message: MessageType) => {
 			chats.push(message);
@@ -76,7 +61,7 @@ export const ChatMain = () => {
 				socket.disconnect();
 			};
 		}
-	}, []);
+	}, [usersList]);
 
 	const sendMessage = async () => {
 		if (message) {
