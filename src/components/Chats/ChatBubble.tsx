@@ -1,16 +1,19 @@
 import { Box, Flex } from "@chakra-ui/react";
 import { ActiveUser } from "../Users/ActiveUser";
+import { MessageType } from "./ChatsBox";
 
-export const ChatBubble = () => {
+type ChatBubbleProps = {
+	chat: MessageType;
+};
+
+export const ChatBubble = ({ chat }: ChatBubbleProps) => {
 	return (
 		<Flex mb="5" justifyContent="flex-start" flexDirection="column">
 			<Box display="flex">
-				<ActiveUser />
+				<ActiveUser name={chat.user} />
 			</Box>
 			<Box w="60%" p="20px" borderRadius="2xl" bgColor="#47476b" color="white">
-				Generating random paragraphs can be an excellent way for writers to get
-				their creative flow going at the beginning of the day. The writer has no
-				idea what topic the random paragraph will be about when it appears.
+				{chat.message}
 			</Box>
 		</Flex>
 	);

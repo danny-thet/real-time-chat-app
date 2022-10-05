@@ -1,8 +1,40 @@
 import { Box, Button, Flex, Input } from "@chakra-ui/react";
+import { useState } from "react";
 import { overflowStyles } from "../../constants/overflowStyles";
 import { ChatBubble } from "./ChatBubble";
 
-export const ChatsBox = () => {
+export type MessageType = {
+	user: string;
+	message: string;
+};
+
+type ChatsBoxProps = {
+	chats: MessageType[];
+	userName: string;
+};
+
+export const ChatsBox = ({ userName, chats }: ChatsBoxProps) => {
+	const [message, setMessage] = useState<string>("");
+
+	const sendMessage = async () => {
+		if (message) {
+			const newMessage: MessageType = {
+				user: userName,
+				message,
+			};
+
+			const resp = await fetch("/api/chat", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(newMessage),
+			});
+
+			if (resp.ok) setMessage("");
+		}
+	};
+
 	return (
 		<Box w="80%" h="100%" pt="7" mx="auto" borderRadius="xl" bgColor="#5c5c8a">
 			<Box
@@ -11,100 +43,26 @@ export const ChatsBox = () => {
 				overflow={overflowStyles.overflow}
 				sx={overflowStyles.sx}
 			>
-				<ChatBubble />
-				<ChatBubble />
-				Generating random paragraphs can be an excellent way for writers to get
-				their creative flow going at the beginning of the day. The writer has no
-				idea what topic the random paragraph will be about when it appears. This
-				forces the writer to use creativity to complete one of three common
-				writing challenges. The writer can use the paragraph as the first one of
-				a short story and build upon it. A second option is to use the random
-				paragraph somewhere in a short story they create. The third option is to
-				have the random paragraph be the ending paragraph in a short story. No
-				matter which of these challenges is undertaken, the writer is forced to
-				use creativity to incorporate the paragraph into their
-				writing.Generating random paragraphs can be an excellent way for writers
-				to get their creative flow going at the beginning of the day. The writer
-				has no idea what topic the random paragraph will be about when it
-				appears. This forces the writer to use creativity to complete one of
-				Generating random paragraphs can be an excellent way for writers to get
-				their creative flow going at the beginning of the day. The writer has no
-				idea what topic the random paragraph will be about when it appears. This
-				forces the writer to use creativity to complete one of three common
-				writing challenges. The writer can use the paragraph as the first one of
-				a short story and build upon it. A second option is to use the random
-				paragraph somewhere in a short story they create. The third option is to
-				have the random paragraph be the ending paragraph in a short story. No
-				matter which of these challenges is undertaken, the writer is forced to
-				use creativity to incorporate the paragraph into their
-				writing.Generating random paragraphs can be an excellent way for writers
-				to get their creative flow going at the beginning of the day. The writer
-				has no idea what topic the random paragraph will be about when it
-				appears. This forces the writer to use creativity to complete one of
-				Generating random paragraphs can be an excellent way for writers to get
-				their creative flow going at the beginning of the day. The writer has no
-				idea what topic the random paragraph will be about when it appears. This
-				forces the writer to use creativity to complete one of three common
-				writing challenges. The writer can use the paragraph as the first one of
-				a short story and build upon it. A second option is to use the random
-				paragraph somewhere in a short story they create. The third option is to
-				have the random paragraph be the ending paragraph in a short story. No
-				matter which of these challenges is undertaken, the writer is forced to
-				use creativity to incorporate the paragraph into their
-				writing.Generating random paragraphs can be an excellent way for writers
-				to get their creative flow going at the beginning of the day. The writer
-				has no idea what topic the random paragraph will be about when it
-				appears. This forces the writer to use creativity to complete one of
-				three common writing challenges. The writer can use the paragraph as the
-				first one of a short story and build upon it. A second option is to use
-				the random paragraph somewhere in a short story they create. The third
-				option is to have the random paragraph be the ending paragraph in a
-				short story. No matter which of these challenges is undertaken, the
-				writer is forced to use creativity to incorporate the paragraph into
-				their writing.Generating random paragraphs can be an excellent way for
-				writers to get their creative flow going at the beginning of the day.
-				The writer has no idea what topic the random paragraph will be about
-				when it appears. This forces the writer to use creativity to complete
-				one of three common writing challenges. The writer can use the paragraph
-				as the first one of a short story and build upon it. A second option is
-				to use the random paragraph somewhere in a short story they create. The
-				third option is to have the random paragraph be the ending paragraph in
-				a short story. No matter which of these challenges is undertaken, the
-				writer is forced to use creativity to incorporate the paragraph into
-				their writing.Generating random paragraphs can be an excellent way for
-				writers to get their creative flow going at the beginning of the day.
-				The writer has no idea what topic the random paragraph will be about
-				when it appears. This forces the writer to use creativity to complete
-				one of three common writing challenges. The writer can use the paragraph
-				as the first one of a short story and build upon it. A second option is
-				to use the random paragraph somewhere in a short story they create. The
-				third option is to have the random paragraph be the ending paragraph in
-				a short story. No matter which of these challenges is undertaken, the
-				writer is forced to use creativity to incorporate the paragraph into
-				their writing.
+				{chats.map((chat) => {
+					return <ChatBubble key={chat.user} chat={chat} />;
+				})}
 			</Box>
 			<Flex my="6" mx="10" minH="100px">
 				<Input
 					bgColor="white"
 					type="text"
 					size="lg"
-					// value={message}
-					// placeholder={isConnected ? "Type a message..." : "Connecting..."}
-					// disabled={!isConnected}
-					// onChange={(e) => {
-					// 	setMessage(e.target.value);
-					// }}
-					// onKeyPress={(e) => {
-					// 	if (e.key === "Enter") {
-					// 		sendMessage();
-					// 	}
-					// }}
+					value={message}
+					onChange={(e) => {
+						setMessage(e.target.value);
+					}}
+					onKeyPress={(e) => {
+						if (e.key === "Enter") {
+							sendMessage();
+						}
+					}}
 				/>
-				<Button
-					ml="4"
-					size="lg"
-					// onClick={sendMessage} disabled={!isConnected}
-				>
+				<Button ml="4" size="lg" onClick={sendMessage}>
 					SEND
 				</Button>
 			</Flex>

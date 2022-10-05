@@ -105,10 +105,10 @@ export const ChatMain = () => {
 										<ActiveUser name={userName} />
 									</Flex>
 								</Box>
-								<Button>Leave Chat</Button>
+								<Button onClick={() => setUserName("")}>Leave Chat</Button>
 							</Flex>
 						</Box>
-						<ChatsBox />
+						<ChatsBox chats={chats} userName={userName} />
 					</Box>
 				</>
 			) : (
