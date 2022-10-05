@@ -1,10 +1,14 @@
-import { Avatar, Box, Flex, Text } from "@chakra-ui/react";
+import { Avatar, Flex, Text } from "@chakra-ui/react";
 
-export const ActiveUser = () => {
+type ActiveUserProps = {
+	name: string;
+};
+
+export const ActiveUser = ({ name }: ActiveUserProps) => {
 	return (
 		<Flex gap="2" mb="5" alignItems="center" justifyContent="center">
-			<Avatar name="Danny Thet" />
-			<Text color="white">Danny Thet</Text>
+			<Avatar name={name} />
+			<Text color="white">{name}</Text>
 		</Flex>
 	);
 };
