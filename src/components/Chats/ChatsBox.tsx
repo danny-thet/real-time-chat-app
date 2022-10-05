@@ -4,10 +4,10 @@ import { ChatBubble } from "./ChatBubble";
 
 export const ChatsBox = () => {
 	return (
-		<Box w="80%" h="100%" mx="auto" borderRadius="xl" bgColor="#5c5c8a">
+		<Box w="80%" h="100%" pt="7" mx="auto" borderRadius="xl" bgColor="#5c5c8a">
 			<Box
 				h="83%"
-				p="10"
+				px="10"
 				overflow={overflowStyles.overflow}
 				sx={overflowStyles.sx}
 			>
@@ -83,7 +83,7 @@ export const ChatsBox = () => {
 				writer is forced to use creativity to incorporate the paragraph into
 				their writing.
 			</Box>
-			<Flex my="4" mx="10" minH="100px">
+			<Flex my="6" mx="10" minH="100px">
 				<Input
 					bgColor="white"
 					type="text"
