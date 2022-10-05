@@ -9,11 +9,12 @@ export type MessageType = {
 };
 
 type ChatsBoxProps = {
+	isConnected: boolean;
 	chats: MessageType[];
 	userName: string;
 };
 
-export const ChatsBox = ({ userName, chats }: ChatsBoxProps) => {
+export const ChatsBox = ({ userName, chats, isConnected }: ChatsBoxProps) => {
 	const [message, setMessage] = useState<string>("");
 
 	const sendMessage = async () => {
@@ -47,7 +48,7 @@ export const ChatsBox = ({ userName, chats }: ChatsBoxProps) => {
 					return <ChatBubble key={chat.user} chat={chat} />;
 				})}
 			</Box>
-			<Flex my="6" mx="10" minH="100px">
+			<Flex m="auto" mt="4" minH="100px" w="70%">
 				<Input
 					bgColor="white"
 					type="text"
@@ -61,8 +62,10 @@ export const ChatsBox = ({ userName, chats }: ChatsBoxProps) => {
 							sendMessage();
 						}
 					}}
+					placeholder={isConnected ? "Type a message..." : "Connecting..."}
+					disabled={!isConnected}
 				/>
-				<Button ml="4" size="lg" onClick={sendMessage}>
+				<Button ml="4" size="lg" onClick={sendMessage} disabled={!isConnected}>
 					SEND
 				</Button>
 			</Flex>

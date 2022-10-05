@@ -15,7 +15,6 @@ export const ChatMain = () => {
 	// states
 	const [isConnected, setIsConnected] = useState<boolean>(false);
 	const [chats, setChats] = useState<MessageType[]>([]);
-	const [message, setMessage] = useState<string>("");
 	const [userName, setUserName] = useState<string>("");
 
 	// effect
@@ -40,26 +39,6 @@ export const ChatMain = () => {
 		}
 	}, [chats]);
 
-	// events
-	const sendMessage = async () => {
-		if (message) {
-			const newMessage: MessageType = {
-				user: userName,
-				message,
-			};
-
-			const resp = await fetch("/api/chat", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify(newMessage),
-			});
-
-			if (resp.ok) setMessage("");
-		}
-	};
-
 	const handleJoinChat = async (name: string) => {
 		setUserName(name);
 	};
@@ -68,35 +47,6 @@ export const ChatMain = () => {
 		<Box bgColor="#3d3d5c">
 			{!!userName ? (
 				<>
-					{/* <Box>
-						{chats
-							? chats?.map((chat, index) => {
-									return (
-										<Box key={index}>
-											{chat.user === user ? "me" : chat.user} : {chat.message}
-										</Box>
-									);
-							  })
-							: "No chat messages"}
-					</Box>
-
-					<Input
-						type="text"
-						value={message}
-						placeholder={isConnected ? "Type a message..." : "Connecting..."}
-						disabled={!isConnected}
-						onChange={(e) => {
-							setMessage(e.target.value);
-						}}
-						onKeyPress={(e) => {
-							if (e.key === "Enter") {
-								sendMessage();
-							}
-						}}
-					/>
-					<Button onClick={sendMessage} disabled={!isConnected}>
-						SEND
-					</Button> */}
 					<Box h="80vh">
 						<Box mt="10">
 							<Flex w="80%" mx="auto" justifyContent={"flex-start"}>
@@ -105,10 +55,21 @@ export const ChatMain = () => {
 										<ActiveUser name={userName} />
 									</Flex>
 								</Box>
-								<Button onClick={() => setUserName("")}>Leave Chat</Button>
+								<Button
+									onClick={() => {
+										setUserName("");
+										setChats([]);
+									}}
+								>
+									Leave Chat
+								</Button>
 							</Flex>
 						</Box>
-						<ChatsBox chats={chats} userName={userName} />
+						<ChatsBox
+							chats={chats}
+							userName={userName}
+							isConnected={isConnected}
+						/>
 					</Box>
 				</>
 			) : (
