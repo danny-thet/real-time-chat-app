@@ -52,6 +52,7 @@ export const Login = ({ setIsNameChoosen }: LoginProps) => {
 	return (
 		<Box display="flex" h="100vh" alignItems="center">
 			<Box
+				minW="70%"
 				h="40%"
 				w="30%"
 				margin="auto"
