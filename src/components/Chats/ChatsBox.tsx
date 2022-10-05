@@ -44,8 +44,10 @@ export const ChatsBox = ({ userName, chats, isConnected }: ChatsBoxProps) => {
 				overflow={overflowStyles.overflow}
 				sx={overflowStyles.sx}
 			>
-				{chats.map((chat) => {
-					return <ChatBubble key={chat.user} chat={chat} />;
+				{chats.map((chat, index) => {
+					const nextChat = chats[index + 1];
+
+					return <ChatBubble key={chat.user} chat={chat} userName={userName} />;
 				})}
 			</Box>
 			<Flex m="auto" mt="4" minH="100px" w="70%">

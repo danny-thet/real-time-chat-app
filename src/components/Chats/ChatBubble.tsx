@@ -4,17 +4,32 @@ import { MessageType } from "./ChatsBox";
 
 type ChatBubbleProps = {
 	chat: MessageType;
+	userName: string;
 };
 
-export const ChatBubble = ({ chat }: ChatBubbleProps) => {
+export const ChatBubble = ({ chat, userName }: ChatBubbleProps) => {
+	const isCurrentUser = chat.user === userName;
+
+	const content = isCurrentUser ? "flex-end" : "flex-start";
+
+	const bgColor = isCurrentUser ? "#e68a00" : "#47476b";
+
 	return (
-		<Flex mb="5" justifyContent="flex-start" flexDirection="column">
+		<>
 			<Box display="flex">
-				<ActiveUser name={chat.user} />
+				{!isCurrentUser && <ActiveUser name={chat.user} />}
 			</Box>
-			<Box w="60%" p="20px" borderRadius="2xl" bgColor="#47476b" color="white">
-				{chat.message}
-			</Box>
-		</Flex>
+			<Flex mb="5" justifyContent={content}>
+				<Box
+					w="60%"
+					p="20px"
+					borderRadius="2xl"
+					bgColor={bgColor}
+					color="white"
+				>
+					{chat.message}
+				</Box>
+			</Flex>
+		</>
 	);
 };
