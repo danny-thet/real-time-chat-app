@@ -17,7 +17,7 @@ export const ChatBubble = ({ chat, userName }: ChatBubbleProps) => {
 	return (
 		<>
 			<Box display="flex">
-				{!isCurrentUser && <ActiveUser name={chat.user} />}
+				{!isCurrentUser && <ActiveUser size="sm" name={chat.user} />}
 			</Box>
 			<Flex mb="5" justifyContent={content}>
 				<Box
