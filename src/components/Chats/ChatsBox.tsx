@@ -1,5 +1,5 @@
 import { Box, Button, Flex, Input } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { overflowStyles } from "../../constants/overflowStyles";
 import { MessageType } from "../../type/chat";
 import { ChatBubble } from "./ChatBubble";
@@ -17,7 +17,12 @@ export const ChatsBox = ({
 	isConnected,
 	userId,
 }: ChatsBoxProps) => {
+	const bottomRef = useRef<null | HTMLElement>(null);
 	const [message, setMessage] = useState<string>("");
+
+	useEffect(() => {
+		bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+	}, [chats]);
 
 	const sendMessage = async () => {
 		if (message) {
@@ -60,6 +65,7 @@ export const ChatsBox = ({
 						/>
 					);
 				})}
+				<Box ref={bottomRef as React.RefObject<HTMLDivElement>} />
 			</Box>
 			<Flex m="auto" mt="4" minH="100px" w="70%">
 				<Input
