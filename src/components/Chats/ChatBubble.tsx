@@ -5,9 +5,10 @@ import { MessageType } from "./ChatsBox";
 type ChatBubbleProps = {
 	chat: MessageType;
 	userName: string;
+	isSameUser: boolean;
 };
 
-export const ChatBubble = ({ chat, userName }: ChatBubbleProps) => {
+export const ChatBubble = ({ chat, userName, isSameUser }: ChatBubbleProps) => {
 	const isCurrentUser = chat.user === userName;
 
 	const content = isCurrentUser ? "flex-end" : "flex-start";
@@ -17,7 +18,9 @@ export const ChatBubble = ({ chat, userName }: ChatBubbleProps) => {
 	return (
 		<>
 			<Box display="flex">
-				{!isCurrentUser && <ActiveUser size="sm" name={chat.user} />}
+				{!isSameUser && !isCurrentUser && (
+					<ActiveUser size="sm" name={chat.user} />
+				)}
 			</Box>
 			<Flex mb="5" justifyContent={content}>
 				<Box

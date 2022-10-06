@@ -45,9 +45,17 @@ export const ChatsBox = ({ userName, chats, isConnected }: ChatsBoxProps) => {
 				sx={overflowStyles.sx}
 			>
 				{chats.map((chat, index) => {
-					const nextChat = chats[index + 1];
+					const previousChat = chats[index - 1];
+					const isSameUser = chat.user === previousChat?.user;
 
-					return <ChatBubble key={chat.user} chat={chat} userName={userName} />;
+					return (
+						<ChatBubble
+							key={chat.user}
+							chat={chat}
+							userName={userName}
+							isSameUser={isSameUser}
+						/>
+					);
 				})}
 			</Box>
 			<Flex m="auto" mt="4" minH="100px" w="70%">
