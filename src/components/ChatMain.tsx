@@ -1,21 +1,19 @@
-import { Box, Button, Flex, Input } from "@chakra-ui/react";
+import { Box, Button, Flex } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
+import { MessageType } from "../type/chat";
 import { ChatsBox } from "./Chats/ChatsBox";
 
 import { Login } from "./Login";
 import { ActiveUser } from "./Users/ActiveUser";
-
-type MessageType = {
-	user: string;
-	message: string;
-};
 
 export const ChatMain = () => {
 	// states
 	const [isConnected, setIsConnected] = useState<boolean>(false);
 	const [chats, setChats] = useState<MessageType[]>([]);
 	const [userName, setUserName] = useState<string>("");
+	const [userId, setUserId] = useState<string>("");
+	const [leaveChat, setLeaveChat] = useState<boolean>(false);
 
 	// effect
 	useEffect(() => {
@@ -25,6 +23,7 @@ export const ChatMain = () => {
 
 		socket.on("connect", async () => {
 			setIsConnected(true);
+			setUserId(socket.id);
 		});
 
 		socket.on("message", (message: MessageType) => {
@@ -37,10 +36,11 @@ export const ChatMain = () => {
 				socket.disconnect();
 			};
 		}
-	}, [chats]);
+	}, [leaveChat]);
 
 	const handleJoinChat = async (name: string) => {
 		setUserName(name);
+		setLeaveChat(false);
 	};
 
 	return (
@@ -59,6 +59,7 @@ export const ChatMain = () => {
 									onClick={() => {
 										setUserName("");
 										setChats([]);
+										setLeaveChat(true);
 									}}
 								>
 									Leave Chat
@@ -67,6 +68,7 @@ export const ChatMain = () => {
 						</Box>
 						<ChatsBox
 							chats={chats}
+							userId={userId}
 							userName={userName}
 							isConnected={isConnected}
 						/>

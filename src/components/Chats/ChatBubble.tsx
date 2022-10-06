@@ -1,15 +1,15 @@
 import { Box, Flex } from "@chakra-ui/react";
+import { MessageType } from "../../type/chat";
 import { ActiveUser } from "../Users/ActiveUser";
-import { MessageType } from "./ChatsBox";
 
 type ChatBubbleProps = {
 	chat: MessageType;
-	userName: string;
+	userId: string;
 	isSameUser: boolean;
 };
 
-export const ChatBubble = ({ chat, userName, isSameUser }: ChatBubbleProps) => {
-	const isCurrentUser = chat.user === userName;
+export const ChatBubble = ({ chat, userId, isSameUser }: ChatBubbleProps) => {
+	const isCurrentUser = chat.userId === userId;
 
 	const content = isCurrentUser ? "flex-end" : "flex-start";
 

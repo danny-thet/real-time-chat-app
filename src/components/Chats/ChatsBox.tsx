@@ -1,26 +1,29 @@
 import { Box, Button, Flex, Input } from "@chakra-ui/react";
 import { useState } from "react";
 import { overflowStyles } from "../../constants/overflowStyles";
+import { MessageType } from "../../type/chat";
 import { ChatBubble } from "./ChatBubble";
-
-export type MessageType = {
-	user: string;
-	message: string;
-};
 
 type ChatsBoxProps = {
 	isConnected: boolean;
 	chats: MessageType[];
 	userName: string;
+	userId: string;
 };
 
-export const ChatsBox = ({ userName, chats, isConnected }: ChatsBoxProps) => {
+export const ChatsBox = ({
+	userName,
+	chats,
+	isConnected,
+	userId,
+}: ChatsBoxProps) => {
 	const [message, setMessage] = useState<string>("");
 
 	const sendMessage = async () => {
 		if (message) {
 			const newMessage: MessageType = {
 				user: userName,
+				userId: userId,
 				message,
 			};
 
@@ -46,13 +49,13 @@ export const ChatsBox = ({ userName, chats, isConnected }: ChatsBoxProps) => {
 			>
 				{chats.map((chat, index) => {
 					const previousChat = chats[index - 1];
-					const isSameUser = chat.user === previousChat?.user;
+					const isSameUser = chat.userId === previousChat?.userId;
 
 					return (
 						<ChatBubble
 							key={chat.user}
 							chat={chat}
-							userName={userName}
+							userId={userId}
 							isSameUser={isSameUser}
 						/>
 					);
