@@ -32,15 +32,18 @@ export const ChatsBox = ({
 				message,
 			};
 
-			const resp = await fetch("/api/chat", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify(newMessage),
-			});
-
-			if (resp.ok) setMessage("");
+			try {
+				const resp = await fetch("/api/chat", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify(newMessage),
+				});
+				if (resp.ok) setMessage("");
+			} catch (error) {
+				console.log(error);
+			}
 		}
 	};
 

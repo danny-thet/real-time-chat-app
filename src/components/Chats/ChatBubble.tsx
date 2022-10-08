@@ -1,6 +1,6 @@
 import { Box, Flex } from "@chakra-ui/react";
 import { MessageType } from "../../type/chat";
-import { ActiveUser } from "../Users/ActiveUser";
+import { ActiveUser } from "../ActiveUser";
 
 type ChatBubbleProps = {
 	chat: MessageType;

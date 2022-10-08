@@ -5,7 +5,7 @@ import { MessageType } from "../type/chat";
 import { ChatsBox } from "./Chats/ChatsBox";
 
 import { Login } from "./Login";
-import { ActiveUser } from "./Users/ActiveUser";
+import { ActiveUser } from "./ActiveUser";
 
 export const ChatMain = () => {
 	// states
