@@ -16,6 +16,8 @@ const SocketHandler = async (
 		res.socket.server.io = io;
 	}
 	res.end();
+
+	console.log("format");
 };
 
 export default SocketHandler;
