@@ -10,6 +10,7 @@ export const ActiveUser = ({ size, name }: ActiveUserProps) => {
 		<Flex gap="2" mb="5" alignItems="center" justifyContent="center">
 			<Avatar name={name} size={size} />
 			<Text color="white">{name}</Text>
+			Testing Active User
 		</Flex>
 	);
 };
